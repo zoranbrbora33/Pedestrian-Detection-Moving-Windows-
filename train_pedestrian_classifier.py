@@ -33,6 +33,7 @@ pedestrian_dataset_loader.print_dataset_info()
 with open(CONFIG_FILE, "r") as file:
     cfg_dict = yaml.safe_load(file)
 
+
 print('Training classifier...')
 # Create an MLP classifier with the specified configuration and fit it to the training data
 classifier = MLPClassifier(random_state=1,
@@ -48,6 +49,9 @@ classifier = MLPClassifier(random_state=1,
 
 print('Done training!!!')
 
+loss = classifier.loss_curve_
+validation = classifier.validation_scores_
+
 # Evaluate the classifier on the testing data and calculate the classification score
 classification_score = classifier.score(X_test, y_test)
 print('Classification score: {}'.format(classification_score))
@@ -55,15 +59,24 @@ print('Classification score: {}'.format(classification_score))
 # Make predictions on the testing data
 y_pred = classifier.predict(X_test)
 
-# Plot the true labels and predicted labels
+# Plot the loss and validation scores
 plt.figure(figsize=(8, 6))
-plt.plot(range(len(y_test)), y_test, color='blue', label='True Labels')
-plt.plot(range(len(y_pred)), y_pred, color='red', label='Predicted Labels')
-plt.xlabel('Sample Index')
-plt.ylabel('Label')
-plt.title('True Labels vs Predicted Labels')
+plt.plot(range(len(loss)), loss, color='blue', label='Loss score')
+plt.plot(range(len(validation)), validation,
+         color='red', label='Validation score')
+plt.xlabel('Iterations')
+plt.ylabel('Loss/Accuracy')
+plt.title('LOSS SCORE vs VALIDATION SCORE\n'
+          f'Max iterations: {cfg_dict["MAX ITER"]}\n'
+          f'Batch size: {cfg_dict["BATCH SIZE"]}\n'
+          f'Learning rate: {cfg_dict["LEARNING_RATE_INIT"]}\n'
+          f'Hidden layer sizes: ({cfg_dict["HIDDEN LAYER1 SIZE"]}, {cfg_dict["HIDDEN LAYER2 SIZE"]})\n'
+          f'Classification score: {classification_score}')
+
 plt.legend()
 plt.show()
+
+plt.savefig('first_plot.png')
 
 # Save the trained classifier and model configuration
 joblib.dump(classifier, MODEL_PATH)
