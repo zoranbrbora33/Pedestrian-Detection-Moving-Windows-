@@ -32,7 +32,7 @@ The code requires the following dependencies:
    This file contains code for performing non-maximum suppression (NMS) on a list of object detections. Non-maximum suppression is a technique commonly used in object detection tasks to eliminate duplicate or overlapping detections and retain only the most confident and accurate ones.
 
 6. dataset: images that contain people and images that don't contain people. Images are used for
-   training and tresting the model.
+   training and testing the model.
 
 7. model_cfg.yaml: YAML file containing the configuration for the pedestrian detection model.
 
