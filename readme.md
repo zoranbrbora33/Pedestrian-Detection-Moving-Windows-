@@ -1,4 +1,4 @@
-# Pedestrian Detection System
+## Pedestrian Detection System
 
 This repository contains code for a Pedestrian Detection System that utilizes a machine learning model trained on a pedestrian dataset and incorporates the technique of moving windows. The system is designed to detect pedestrians in images by employing a sliding window approach. This technique involves scanning the image with a window of fixed size and moving it across the image in a systematic manner. At each position, the machine learning model is applied to determine whether the window contains a pedestrian or not. By iterating this process over different scales and positions, the system can effectively identify pedestrians in various parts of the image. The combination of the trained model and the moving windows technique enables accurate pedestrian detection in a wide range of scenarios.
 
